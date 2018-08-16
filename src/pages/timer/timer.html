@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      Timer
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row row-4>
+      <ion-col>
+        <button ion-button (tap)="pause()" ion-icon>
+          <i class="material-icons" *ngIf="isPaused">play_arrow</i>
+          <i class="material-icons" *ngIf="!isPaused">pause</i>
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button (tap)="stop()">
+          <i class="material-icons">stop</i>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row row-6>
+      <round-progress class="progress" [current]="current" [max]="max" responsive="true"></round-progress>
+    </ion-row>
+  </ion-grid>
+</ion-content>
