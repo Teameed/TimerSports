@@ -47,9 +47,11 @@ export class HomePage {
   valid(){
     let timeReps = this.timeSelected;
     let timeRest =  this.timeSelectedRest;
+    let numberRep = this.numberRep;
+    console.log(this.numberRep);
 
     this.modalCtrl.create(
-      TimerPage, {reps: timeReps, rest: timeRest}
+      TimerPage, {reps: timeReps, rest: timeRest, nbrRep: numberRep}
     ).present();
   }
 }
