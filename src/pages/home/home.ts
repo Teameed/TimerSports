@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Slides, IonicPage, ModalController } from 'ionic-angular';
-import { TimerPage } from '../timer/timer';
+import { Slides, IonicPage, ModalController, NavController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -21,7 +20,8 @@ export class HomePage {
 
 
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    public navCtrl: NavController
     ) {
   }
 
@@ -48,10 +48,10 @@ export class HomePage {
     let timeReps = this.timeSelected;
     let timeRest =  this.timeSelectedRest;
     let numberRep = this.numberRep;
-    console.log(this.numberRep);
 
-    this.modalCtrl.create(
+    this.navCtrl.push('TimerPage', {reps: timeReps, rest: timeRest, nbrRep: numberRep});
+    /*this.modalCtrl.create(
       TimerPage, {reps: timeReps, rest: timeRest, nbrRep: numberRep}
-    ).present();
+    ).present();*/
   }
 }
