@@ -6,13 +6,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { WheelSelector } from '@ionic-native/wheel-selector';
 
 import { MyApp } from './app.component';
-import { TimerPage } from '../pages/timer/timer';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 
 @NgModule({
   declarations: [
-    MyApp,
-    TimerPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -21,8 +19,7 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    TimerPage
+    MyApp
   ],
   providers: [
     StatusBar,
