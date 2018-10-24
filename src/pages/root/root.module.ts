@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
-import { HomePage } from './home';
+import { RootPage } from './root';
 
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { IonicPageModule } from 'ionic-angular';
 import { TimerComponentModule } from '../../components/timer/timer.module';
+import { HomePageModule } from '../home/home.module';
 
 @NgModule({
-	declarations: [HomePage],
-    imports: [IonicPageModule.forChild(HomePage),
+	declarations: [RootPage],
+    imports: [IonicPageModule.forChild(RootPage),
               RoundProgressModule,
-              TimerComponentModule
-              ],
-	exports: [HomePage]
+              TimerComponentModule,
+              HomePageModule],
+	exports: [RootPage]
 })
-export class HomePageModule {}
+export class RootPageModule {}

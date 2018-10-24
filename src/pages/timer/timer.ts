@@ -1,157 +1,164 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 
-@IonicPage()
 @Component({
   selector: 'page-timer',
   templateUrl: 'timer.html',
 })
 export class TimerPage {
-  constTime: Array<number> = [0,0,0,0];
+
   timeRest: Array<number> = [0,0];
   timeReps: Array<number> = [0,0];
-  screenTime: Array<number> = [0,0];
-  limitReps: number = 0;
-  limitRest: number = 0;
-  limitNumberRep: number = 0;
-
-
-  current: number = 0;
   max: number = 0;
+  current: number = 0;
+  duration: number = 100;
   n: number = 0;
   isPaused: boolean = true;
-  state: string = 'reps';
+  numberOfReps: number = 0;
+  state: string = "repsTime";
+  currentScreenMin: number = 0;
+  currentScreenSec: number = 0;
+  clockwise: boolean = true;
+  animation: string = "linearEase";
+  timeout: number;
+  numberCycle: number = 1;
+  restCycle: Array<number> = [0,0];
+  currentCycle: number = 1;
+  
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public alertCtrl: AlertController
-  ) {
+    public alertCtrl: AlertController,
+    public viewCtrl: ViewController) {
+      this.timeReps = this.navParams.get('reps');
+      this.timeRest = this.navParams.get('rest');
+      this.numberOfReps = this.navParams.get('numberRep');
+      this.numberCycle = this.navParams.get('numberCycle');
+      this.restCycle = this.navParams.get('restCycle');
 
-      let timeReps = this.navParams.get('reps');
-      let timeRest = this.navParams.get('rest');
-      this.limitNumberRep = this.navParams.get('nbrRep');
-
-      this.constTime[0] = timeReps[0];
-      this.constTime[1] = timeReps[1];
-      this.constTime[2] = timeRest[0];
-      this.constTime[3] = timeRest[1];
-      this.screenTime = [this.constTime[0], this.constTime[1]];
-
-      this.limitReps = timeReps[0] * 60 + timeReps[1];
-      this.limitRest = timeRest[0] * 60 + timeRest[1];
-      this.max = this.limitReps;
+      this.max = this.timeReps[0]*60 + this.timeReps[1];
+      
   }
 
-  clock(){
-    setTimeout(() =>{
-      if (this.state == 'reps'){
-        if (this.current < this.limitReps && this.isPaused != true){
-          this.current++;
-          this.refreshTime();
-          this.clock();
-        }
-        else{
-          this.current = 0;
-          this.max = this.limitRest;
-          this.state = 'rest';
-          if (this.n < this.limitNumberRep){
-            this.screenTime = [this.constTime[2], this.constTime[3]];
-            this.clock();
-          }
-          else{
-            this.finish();
-            return;
-          }
-        }
-      }
-      else{
-        if (this.current < this.limitRest && this.isPaused != true){
-          this.current++;
-          this.refreshTime();
-          this.clock();
-        }
-        else{
-          this.n++;
-          this.current = 0;
-          this.state = 'reps';
-          this.max = this.limitReps;
-          if (this.n < this.limitNumberRep){
-            this.screenTime = [this.constTime[0], this.constTime[1]];
-            this.clock();
-          }
-          else{
-            this.finish();
-            return;
-          }
-        }
-      }
-    }, 1000)
+  ionViewWillEnter(){
+    this.currentScreenMin = this.timeReps[0];
+    this.currentScreenSec = this.timeReps[1];
   }
 
   pause(){
     if (this.isPaused){
+      console.log(this.isPaused);
       this.isPaused = false;
-      this.clock();
+      this.clock2();
     }
     else{
+      clearInterval(this.timeout);
       this.isPaused = true;
     }
   }
 
-  stop(){
-    this.current = 0;
-    this.isPaused = true;
-
-    this.screenTime = [this.constTime[0], this.constTime[1]];
+  clock2(){
+    this.timeout = setInterval(() => {
+        if (this.current < this.max && this.isPaused != true){
+          this.current += 0.1;
+          this.current = Math.round(this.current*100)/100;
+          if (this.current % 1 == 0){
+            this.refreshScreenTime();
+          }
+        }
+        else{
+          if (!this.isPaused){
+            clearInterval(this.timeout);
+            this.changeState();
+          }
+        }
+    }, 100);
   }
 
-  finish(){
+  stop(){
+    clearInterval(this.timeout);
+    this.isPaused = true;
     let alert = this.alertCtrl.create({
-      title: 'Congratulations',
-      message: 'You just finished your training, do you want to restart ?',
-      buttons: [{
-        text: 'Yes',
-        handler: () => {
-          this.reset();
+      title: 'Ready for another one ?',
+      message: 'Do you want to restart this activity ?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('check no');
+          }
+        },
+        {
+          text: 'Yes, totally !',
+          handler: () => {
+            this.viewCtrl.dismiss();
+          }
         }
-      },{
-        text: 'No',
-        handler: () => {
-          this.goBack();
-        }
-      }] 
+      ]
     });
+
     alert.present();
   }
 
-  goBack(){
-    this.viewCtrl.dismiss();
+  changeState(){
+    this.current = 0;
+    if (this.state == "repsTime"){
+        this.state = "restTime";
+        if (this.numberOfReps > 1){
+          this.currentScreenMin = this.timeRest[0];
+          this.currentScreenSec = this.timeRest[1];
+          this.numberOfReps--;
+          this.max = this.timeRest[0]*60 + this.timeRest[1];
+          this.clock2();
+        }
+        else{
+          if (this.numberCycle > 1 && this.currentCycle < this.numberCycle){
+            this.currentCycle++;
+            this.numberOfReps = this.navParams.get('numberRep');
+            this.max = this.restCycle[0]*60 + this.restCycle[1];
+            this.currentScreenMin = this.restCycle[0];
+            this.currentScreenSec = this.restCycle[1];
+            this.clock2();
+          }
+          else{
+            this.reset();
+          }
+        }
+    }
+    else{
+        this.state = "repsTime";
+        if (this.numberOfReps > 0){
+          this.currentScreenMin = this.timeReps[0];
+          this.currentScreenSec = this.timeReps[1];
+          this.max = this.timeReps[0]*60 + this.timeReps[1];
+          this.clock2();
+        }
+        else{
+          //this.reset();
+        }
+    }
   }
 
   reset(){
-    //ici function for reset
+    this.clockwise = true;
+    this.state = "repsTime";
+    this.current = 0;
+    this.isPaused = true;
+    this.numberOfReps = this.navParams.get('numberRep');
+    this.max = this.timeReps[0]*60 + this.timeReps[1];
+    this.currentScreenMin = this.timeReps[0];
+    this.currentScreenSec = this.timeReps[1];
+          
   }
 
-  refreshTime(){
-    if (this.state == 'reps'){
-      if (this.screenTime[1] > 0){
-        this.screenTime[1] -= 1;
-      }
-      else{
-        this.screenTime[0] -= 1;
-        this.screenTime[1] = 59;
-      }
+  refreshScreenTime(){
+    if (this.currentScreenSec > 0){
+      this.currentScreenSec--;
     }
     else{
-      if (this.screenTime[1] > 0){
-        this.screenTime[1] -= 1;
-      }
-      else{
-        this.screenTime[0] -= 1;
-        this.screenTime[1] = 59;
-      }
+      this.currentScreenMin--;
+      this.currentScreenSec = 59;
     }
   }
 }

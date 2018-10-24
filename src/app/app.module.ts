@@ -7,19 +7,28 @@ import { WheelSelector } from '@ionic-native/wheel-selector';
 
 import { MyApp } from './app.component';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { NumberToString } from '../filters/numberToString';
+import { HomePageModule } from '../pages/home/home.module';
+import { RootPageModule } from '../pages/root/root.module';
+import { TimerPage } from '../pages/timer/timer';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    NumberToString,
+    TimerPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    RoundProgressModule
+    RoundProgressModule,
+    HomePageModule,
+    RootPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    TimerPage
   ],
   providers: [
     StatusBar,

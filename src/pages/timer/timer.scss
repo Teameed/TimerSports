@@ -1,8 +1,21 @@
 page-timer {
-    .progress-circle{
+    .leave-btn{
         position: absolute;
-        top: 40%;
+        bottom: -3.5px;
+    }
+      
+    .progress-wrapper{
+        height: 200px;
+        position: relative;
+    }
+    .progress-wrapper .current {
+        position: absolute;
+        top: 50%;
         left: 50%;
-        bottom: 5%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        color: #bbb;
+        font-weight: 100;
+        font-size: 200%;
     }
 }

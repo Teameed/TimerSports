@@ -1,0 +1,56 @@
+<ion-card class="time-picker">
+  <ion-row>
+    <ion-item class="header-range" no-lines>
+      <ion-label text-center>Nombre de répétitions</ion-label>
+    </ion-item>
+  </ion-row>
+</ion-card>
+<ion-card class="time-picker">
+  <ion-grid class="range-picker">
+    <ion-row text-center>
+      <ion-col>
+        <button ion-button ion-icon class="range-button" (tap)="removeRep()">
+            <i class="material-icons">remove</i>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button ion-icon class="range-button">
+          {{numberRep}}
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button ion-icon class="range-button" (tap)="addRep()">
+          <i class="material-icons">add</i>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+<ion-row>
+  <ion-item class="header-range" no-lines>
+      <ion-label text-center>Temps des répétitions</ion-label>
+  </ion-item>
+</ion-row>
+<ion-card class="time-picker">
+    <ion-grid class="range-picker">
+      <ion-row>
+          <ion-item no-padding>
+            <ion-datetime displayFormat="ss : mm" minuteValues="00,05,10,15,20,25,30,35,40,45,50,55" placeholder="00 : 00" class="picker" [(ngModel)]="timeReps" (ngModelChange)="datePicker('reps')"></ion-datetime>
+          </ion-item>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+<ion-row>
+  <ion-item class="header-range" no-lines>
+      <ion-label text-center>Temps du repos</ion-label>
+  </ion-item>
+</ion-row>
+<ion-card class="time-picker">
+    <ion-grid class="range-picker">
+      <ion-row>
+          <ion-item no-padding>
+              <ion-datetime displayFormat="ss : mm" minuteValues="00,05,10,15,20,25,30,35,40,45,50,55" placeholder="00 : 00" class="picker" [(ngModel)]="timeRest" (ngModelChange)="datePicker('rest')"></ion-datetime>
+          </ion-item>
+      </ion-row>
+    </ion-grid>
+  </ion-card>

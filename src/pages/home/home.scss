@@ -3,12 +3,40 @@ page-home {
         background-color: white;
     }
     .header-range{
-        background-color: #ececec;
+        background-color: white;
     }
     .time-picker{
         box-shadow: none;
         margin-left: 0;
         margin-right: 0;
         width: 100vw;
+    }
+    .picker{
+        width: 100vw;
+        text-align: center;
+    }
+    .cycle-button{
+        box-shadow: none;
+        width: 50px;
+        height: 50px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 25px;
+        color: black;
+    }
+    .cycle-button.activated{
+        box-shadow: none;
+    }
+    .cycle-info{
+        box-shadow: none;
+
+        background: white;
+        color: black;
+        box-shadow: none;
+        height: 50px;
+    }
+    .cycle-info[disabled]{
+        opacity: 1;
     }
 }

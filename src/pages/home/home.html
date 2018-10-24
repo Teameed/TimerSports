@@ -1,88 +1,32 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title text-center>
-      Timer
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content style="background-color: #ececec;">
-  <div class="main-body">
-    <ion-row>
-      <ion-item class="header-range" no-lines>
-        <ion-label text-center>Nombre de répétitions</ion-label>
-      </ion-item>
-    </ion-row>
-    <ion-card class="time-picker">
-      <ion-grid>
-        <ion-row>
-          <ion-item class="range" no-lines>
-            <ion-range min="0" max="10" step="1" snaps="true" pin="true" [(ngModel)]="numberRep">
-                <ion-label range-left>0</ion-label>
-                <ion-label range-right>10</ion-label>
-            </ion-range>
-          </ion-item>
-        </ion-row>
-      </ion-grid>
-    </ion-card>
-    <ion-row>
-      <ion-item class="header-range" no-lines>
-          <ion-label text-center>Temps des répétitions</ion-label>
-      </ion-item>
-    </ion-row>
-    <ion-card class="time-picker">
-      <ion-grid>
-        <ion-row row-6>
-          <ion-col col-5 text-center>
-            <ion-slides #minSlide direction="vertical" style="max-height: 60px" (ionSlideDidChange)="slideSwapM('reps')">
-              <ion-slide *ngFor="let i of timesInM">
-                {{i}}
-              </ion-slide>
-            </ion-slides> 
-          </ion-col>
-          <ion-col col-2 text-center padding>
-            <h1>:</h1>
-          </ion-col>
-          <ion-col col-5>
-            <ion-slides #secSlide direction="vertical" style="max-height: 60px" (ionSlideDidChange)="slideSwapS('reps')">
-              <ion-slide *ngFor="let i of timesInS">
-                {{i}}
-              </ion-slide>
-            </ion-slides> 
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card>
-    <ion-row>
-      <ion-item class="header-range" no-lines>
-          <ion-label text-center>Temps du repos</ion-label>
-      </ion-item>
-    </ion-row>
-    <ion-card class="time-picker">
-        <ion-grid>
-          <ion-row row-6>
-            <ion-col col-5 text-center>
-              <ion-slides #minSlideRest direction="vertical" style="max-height: 60px" (ionSlideDidChange)="slideSwapM()">
-                <ion-slide *ngFor="let i of timesInM">
-                  {{i}}
-                </ion-slide>
-              </ion-slides> 
-            </ion-col>
-            <ion-col col-2 text-center padding>
-              <h1>:</h1>
-            </ion-col>
-            <ion-col col-5>
-              <ion-slides #secSlideRest direction="vertical" style="max-height: 60px" (ionSlideDidChange)="slideSwapS()">
-                <ion-slide *ngFor="let i of timesInS">
-                  {{i}}
-                </ion-slide>
-              </ion-slides> 
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
-      <button ion-button ion-icon block (tap)="valid()">
-        <i class="material-icons">done</i>
+<ion-content>
+  <timer (change)="updateWorkout($event)" [reset]="reset"></timer>
+  <ion-row text-center>
+    <ion-col>
+      <button ion-button ion-icon class="cycle-button" style="background: rgba(71, 71, 135, 0.05);" [disabled]="numberCycle == 1" (tap)="removeCycle()">
+        <i class="material-icons">remove</i>
       </button>
-  </div>
+    </ion-col>
+    <ion-col>
+      <button ion-button ion-icon class="cycle-info" disabled="true">
+        {{numberCycle}} Séries
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button ion-icon class="cycle-button" style="background: rgba(71, 71, 135, 0.05);" (tap)="addCycle()">
+        <i class="material-icons">add</i>
+      </button>
+    </ion-col>
+  </ion-row>
+  <ion-row text-center>
+      <ion-col>
+        <button ion-button ion-icon class="cycle-button" style="background: #FC4949;" (tap)="refresh()">
+          <i class="material-icons">refresh</i>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button ion-icon class="cycle-button" style="background: #33D9B2;" (tap)="valid()">
+          <i class="material-icons">check</i>
+        </button>
+      </ion-col>
+    </ion-row>
 </ion-content>

@@ -14,3 +14,101 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.tab-button[aria-selected=true]{
+    ion-icon{
+        &[class*="custom-"] {
+            // Instead of using the font-based icons
+            // We're applying SVG masks
+            mask-size: contain;
+            mask-position: 50% 50%;
+            mask-repeat: no-repeat;
+            background: currentColor;
+            width: 1em;
+            height: 1em;
+        }
+        &[class*="custom-profile"] {
+            mask-image: url(../assets/icon/baseline-account_circle-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+            
+        }
+        &[class*="custom-timer"] {
+            mask-image: url(../assets/icon/baseline-av_timer-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+        &[class*="custom-setting"] {
+            mask-image: url(../assets/icon/baseline-settings-20px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+        &[class*="custom-profile-outline"] {
+            mask-image: url(../assets/icon/outline-account_circle-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+        &[class*="custom-setting-outline"] {
+            mask-image: url(../assets/icon/outline-settings-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+}
+}
+
+ion-icon{
+        &[class*="custom-"] {
+            // Instead of using the font-based icons
+            // We're applying SVG masks
+            mask-size: contain;
+            mask-position: 50% 50%;
+            mask-repeat: no-repeat;
+            background: currentColor;
+            width: 1em;
+            height: 1em;
+        }
+        &[class*="custom-profile"] {
+            mask-image: url(../assets/icon/baseline-account_circle-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+        &[class*="custom-timer"] {
+            mask-image: url(../assets/icon/baseline-av_timer-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+        &[class*="custom-setting"] {
+            mask-image: url(../assets/icon/baseline-settings-20px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+        &[class*="custom-profile-outline"] {
+            mask-image: url(../assets/icon/outline-account_circle-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+        &[class*="custom-setting-outline"] {
+            mask-image: url(../assets/icon/outline-settings-24px.svg);
+            height: 24px !important;
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+            margin-left: 1px !important;
+        }
+}
